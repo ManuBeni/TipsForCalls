@@ -2,11 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "*.html",
+      "src": "updated-interpreter-guide.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/",
+      "dest": "/updated-interpreter-guide.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"
