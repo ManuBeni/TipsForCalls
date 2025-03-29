@@ -34,10 +34,53 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 5px;
-            padding: 0 10px;
+            gap: 2px;
+            padding: 0 2px;
             flex-wrap: wrap;
             min-height: 40px;
+        }
+        .language-switch {
+            margin-right: 2px;
+            padding: 2px 4px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #0066cc;
+            border: 1px solid #0066cc;
+            position: relative;
+            display: inline-block;
+        }
+        .language-switch:hover {
+            background-color: #dee2e6;
+        }
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            min-width: 100px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .language-switch:hover .language-dropdown {
+            display: block;
+        }
+        .language-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .language-option:hover {
+            background-color: #e9ecef;
+            color: #0066cc;
+        }
+        .language-option.active {
+            background-color: #e9ecef;
+            color: #0066cc;
+            font-weight: bold;
         }
         .menu-container::-webkit-scrollbar {
             display: none;
@@ -45,13 +88,13 @@
         .top-menu a {
             text-decoration: none;
             color: #0066cc;
-            padding: 5px 8px;
+            padding: 2px 4px;
             transition: color 0.3s, background-color 0.3s;
             border-radius: 4px;
             white-space: nowrap;
             font-size: 14px;
             display: inline-block;
-            margin: 2px;
+            margin: 1px;
         }
         .top-menu a:hover {
             color: #004080;
@@ -179,6 +222,13 @@
 <body>
     <div class="top-menu">
         <div class="menu-container">
+            <div class="language-switch">
+                <span id="current-language">ES</span>
+                <div class="language-dropdown">
+                    <div class="language-option active" onclick="setLanguage('es')">Español</div>
+                    <div class="language-option" onclick="setLanguage('en')">English</div>
+                </div>
+            </div>
             <a href="#section1">1. Greetings</a>
             <a href="#section2">2. Pre-sessions</a>
             <a href="#section3">3. Closings</a>
@@ -218,8 +268,8 @@
             </div>
             
             <div class="subsection">
-                <h3>Pre-session with Patient (en otro idioma que no sea inglés)</h3>
-                <div class="quote">"Mi nombre es (First Name) y seré su intérprete de (Language). Por favor, mire y hable directamente con su proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona. Todo se mantendrá confidencial."</div>
+                <h3>Pre-session with Patient (non-English language)</h3>
+                <div class="quote" data-translate="Mi nombre es (First Name) y seré su intérprete de (Language). Por favor, mire y hable directamente con su proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona. Todo se mantendrá confidencial.">Mi nombre es (First Name) y seré su intérprete de (Language). Por favor, mire y hable directamente con su proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona. Todo se mantendrá confidencial.</div>
             </div>
             
             <div class="subsection">
@@ -260,7 +310,7 @@
             <div class="subsection">
                 <h3>Long call</h3>
                 <div class="quote">Provider: "Provider, as the interpreter, I think we've reached a good moment in the conversation to switch out interpreters. Please remain on the line and you'll be connected with one of my colleagues momentarily and you can continue. Thank you."</div>
-                <div class="quote">Patient (en otro idioma que no sea inglés): "Como intérprete, creo que hemos llegado a un buen momento en la conversación para cambiar de intérpretes. Por favor, permanezca en la línea y se conectará con uno de mis colegas momentáneamente y podrá continuar. Gracias."</div>
+                <div class="quote" data-translate="Como intérprete, creo que hemos llegado a un buen momento en la conversación para cambiar de intérpretes. Por favor, permanezca en la línea y se conectará con uno de mis colegas momentáneamente y podrá continuar. Gracias.">Como intérprete, creo que hemos llegado a un buen momento en la conversación para cambiar de intérpretes. Por favor, permanezca en la línea y se conectará con uno de mis colegas momentáneamente y podrá continuar. Gracias.</div>
             </div>
         </div>
 
@@ -274,8 +324,8 @@
             
             <div class="subsection">
                 <h3>After Dial-Out</h3>
-                <div class="quote">Third Party Answers (en otro idioma que no sea inglés): "¿Puedo hablar con [el tercero/contacto]? Hola, soy [Nombre], un intérprete que llama en nombre del Proveedor/Doctor para el hospital. Por favor, hable directamente con su Doctor/Proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Provider, you may begin."</div>
-                <div class="quote">If needed, Voicemail Message (en otro idioma que no sea inglés): "Hola, soy [Nombre], un intérprete que llama en nombre del [Doctor/Proveedor] para [el hospital]. [Dejar mensaje del Doctor/Proveedor]. Nuevamente, soy [Nombre], un intérprete que llama en nombre de [Doctor/Proveedor], adiós."</div>
+                <div class="quote" data-translate="¿Puedo hablar con [el tercero/contacto]? Hola, soy [Nombre], un intérprete que llama en nombre del Proveedor/Doctor para el hospital. Por favor, hable directamente con su Doctor/Proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Provider, you may begin.">¿Puedo hablar con [el tercero/contacto]? Hola, soy [Nombre], un intérprete que llama en nombre del Proveedor/Doctor para el hospital. Por favor, hable directamente con su Doctor/Proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Provider, you may begin.</div>
+                <div class="quote" data-translate="Hola, soy [Nombre], un intérprete que llama en nombre del [Doctor/Proveedor] para [el hospital]. [Dejar mensaje del Doctor/Proveedor]. Nuevamente, soy [Nombre], un intérprete que llama en nombre de [Doctor/Proveedor], adiós.">Hola, soy [Nombre], un intérprete que llama en nombre del [Doctor/Proveedor] para [el hospital]. [Dejar mensaje del Doctor/Proveedor]. Nuevamente, soy [Nombre], un intérprete que llama en nombre de [Doctor/Proveedor], adiós.</div>
             </div>
         </div>
 
@@ -321,7 +371,7 @@
             <div class="subsection">
                 <h3>Hold Guidelines</h3>
                 <div class="quote">Provider: "I can wait up to 10 minutes for your return. I will shut off my video and audio for the patient's privacy."</div>
-                <div class="quote">Patient: "Le hice saber al proveedor que puedo esperar hasta 10 minutos para que regrese. Apagaré mi video y audio para su privacidad mientras el proveedor está fuera de la sala. Reanudaremos la interpretación una vez que regresen."</div>
+                <div class="quote" data-translate="Le hice saber al proveedor que puedo esperar hasta 10 minutos para que regrese. Apagaré mi video y audio para su privacidad mientras el proveedor está fuera de la sala. Reanudaremos la interpretación una vez que regresen.">Le hice saber al proveedor que puedo esperar hasta 10 minutos para que regrese. Apagaré mi video y audio para su privacidad mientras el proveedor está fuera de la sala. Reanudaremos la interpretación una vez que regresen.</div>
                 <div class="quote">Always make a note of the hold times. Use professional judgment as you may need to wait longer for sensitive situations.</div>
             </div>
             
@@ -346,25 +396,25 @@
                 <h3>Dialect Differences – Staying in the Call</h3>
                 <div class="quote">-Provider asks if you can interpret for a specific variety of a language you are qualified to interpret: "Yes, the interpreter is qualified to interpret for this."</div>
                 <div class="quote">- Provider: "The interpreter and patient speak different dialects of our language. I may need to clarify more often with the patient to ensure accurate interpretation."</div>
-                <div class="quote">- Patient: "Como hablamos diferentes dialectos de nuestro idioma, el intérprete puede necesitar aclarar con más frecuencia con usted para asegurar una interpretación precisa."</div>
+                <div class="quote" data-translate="Como hablamos diferentes dialectos de nuestro idioma, el intérprete puede necesitar aclarar con más frecuencia con usted para asegurar una interpretación precisa.">Como hablamos diferentes dialectos de nuestro idioma, el intérprete puede necesitar aclarar con más frecuencia con usted para asegurar una interpretación precisa.</div>
             </div>
             
             <div class="subsection">
                 <h3>Shadowing – Successful Communication</h3>
                 <div class="quote">- Provider: "The interpreter sees that you are communicating well. I will shadow the encounter and step in if I'm needed."</div>
-                <div class="quote">- Patient: "El intérprete observa que están comunicándose bien. Permaneceré atento durante el encuentro e intervendré si es necesario."</div>
+                <div class="quote" data-translate="El intérprete observa que están comunicándose bien. Permaneceré atento durante el encuentro e intervendré si es necesario.">El intérprete observa que están comunicándose bien. Permaneceré atento durante el encuentro e intervendré si es necesario.</div>
             </div>
             
             <div class="subsection">
                 <h3>Shadowing – Resume Interpreting</h3>
                 <div class="quote">- Provider: "The interpreter sees that communication may not be flowing well. I will step in and resume interpreting."</div>
-                <div class="quote">- Patient: (In non-English language) "El intérprete observa que la comunicación no está fluyendo bien. Intervendré y reanudaré la interpretación."</div>
+                <div class="quote" data-translate="El intérprete observa que la comunicación no está fluyendo bien. Intervendré y reanudaré la interpretación.">El intérprete observa que la comunicación no está fluyendo bien. Intervendré y reanudaré la interpretación.</div>
             </div>
             
             <div class="subsection">
                 <h3>Switching Between Languages</h3>
                 <div class="quote">- If Provider is speaking both languages: "Provider, this is the interpreter. It will help for an accurate interpretation if I can interpret between English and (Other Language). Please only speak in English and I will interpret into (Other Language)." Be transparent with Patient.</div>
-                <div class="quote">- If Patient is speaking both languages: "Este es el intérprete. Ayudará para una interpretación precisa si puedo interpretar entre Español y el inglés. Por favor, hable solo en Español y yo interpretaré al inglés." Be transparent with Provider.</div>
+                <div class="quote" data-translate="Este es el intérprete. Ayudará para una interpretación precisa si puedo interpretar entre Español y el inglés. Por favor, hable solo en Español y yo interpretaré al inglés.">Patient: Este es el intérprete. Ayudará para una interpretación precisa si puedo interpretar entre Español y el inglés.</div>
             </div>
             
             <div class="subsection">
@@ -390,11 +440,17 @@
             <div class="subsection">
                 <h3>Patient Cognition Limitations</h3>
                 <div class="quote">- If Patient does not understand video modality:
-                <br>• Provider: "The interpreter will remove the video and inform the patient."
-                <br>• Patient: "This is your interpreter. I am speaking to you as if we are on the phone. Can you hear me well?"</div>
+                <div class="quote">Provider: "The interpreter will remove the video and inform the patient."
+                </div>
+                <div class="quote" data-translate="Este es su intérprete. Le estoy hablando como si estuviéramos en el teléfono. ¿Me puede oír bien?">Patient: Este es su intérprete. Le estoy hablando como si estuviéramos en el teléfono. ¿Me puede oír bien?</div>
+                </div>
+                
                 <div class="quote">- If Limitations Cannot be Overcome
-                <br>• To Provider: "The interpreter will withdraw from this encounter. I suggest working with a face-to-face interpreter for this case."
-                <br>• To Patient: "This is your interpreter. I let your provider know I will withdraw from this encounter and suggested a face-to-face interpreter."</div>
+                
+                <div class="quote"> To Provider: "The interpreter will withdraw from this encounter. I suggest working with a face-to-face interpreter for this case."</div>
+                <div class="quote" data-translate="Este es su intérprete. Le informé a su proveedor que me retiraré de este encuentro y sugerí un intérprete presencial.">Patient: Este es su intérprete. Le informé a su proveedor que me retiraré de este encuentro y sugerí un intérprete presencial.</div>
+                </div>
+                
             </div>
             
             <div class="subsection">
@@ -407,8 +463,8 @@
             
             <div class="subsection">
                 <h3>Provider or Patient asking for your Location</h3>
-                <div class="quote">- "Estoy en un espacio de trabajo que cumple con HIPAA."</div>
-                <div class="quote">If pressed for more information, you may answer: "Por razones de privacidad y seguridad, no revelamos la ubicación."</div>
+                <div class="quote" data-translate="Estoy en un espacio de trabajo que cumple con HIPAA.">Estoy en un espacio de trabajo que cumple con HIPAA.</div>
+                <div class="quote" data-translate="Por razones de privacidad y seguridad, no revelamos la ubicación.">Por razones de privacidad y seguridad, no revelamos la ubicación.</div>
             </div>
             
             <div class="subsection">
@@ -452,10 +508,9 @@
             
             <div class="subsection">
                 <h3>Interpreter</h3>
-                <div class="quote">- Greeting (In non-English language): "Hola, gracias por llamar. Soy (First Name), intérprete de (Language). Veo que necesita llamar a (Hospital Name from Account). ¿Es así?"</div>
-                <div class="quote">- Before dialing out to the hospital number listed under department or number provided by the patient (In non-English language): Ok, marcaré al (Número de teléfono dado o listado debajo de "Departament"). Si en algún momento llegamos a un buzón de voz, ¿le gustaría dejar un mensaje?
-                <br>If yes:¿Qué le gustaría que dijera el mensaje? </div>
-                <div class="quote">- Once the provider is reached (In English): Hello, this is (First Name), your (Language) interpreter, (Employee ID #), and I have a (Language)-speaking patient on the line. I'll let them know you answered, interpret your question, and we can continue.</div>
+                <div class="quote" data-translate="Hola, gracias por llamar. Soy (First Name), intérprete de (Language). Veo que necesita llamar a (Hospital Name from Account). ¿Es así?">Patient: Hola, gracias por llamar. Soy (First Name), intérprete de (Language). Veo que necesita llamar a (Hospital Name from Account). ¿Es así?</div>
+                <div class="quote" data-translate="Ok, marcaré al (Número de teléfono dado o listado debajo de 'Department'). Si en algún momento llegamos a un buzón de voz, ¿le gustaría dejar un mensaje?">Patient: Ok, marcaré al (Número de teléfono dado o listado debajo de 'Department'). Si en algún momento llegamos a un buzón de voz, ¿le gustaría dejar un mensaje?</div>
+                <div class="quote" data-translate="¿Qué le gustaría que dijera el mensaje?">Patient: ¿Qué le gustaría que dijera el mensaje?</div>
             </div>
             
             <div class="subsection">
@@ -475,12 +530,58 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
             });
         });
+
+        // Language toggle functionality
+        let isEnglish = false;
+        const translations = {
+            "Hola, gracias por llamar. Soy (First Name), intérprete de (Language). Veo que necesita llamar a (Hospital Name from Account). ¿Es así?": "Hello, thank you for calling. I am (First Name), (Language) interpreter. I see you need to call (Hospital Name from Account). Is that correct?",
+            "Ok, marcaré al (Número de teléfono dado o listado debajo de 'Department'). Si en algún momento llegamos a un buzón de voz, ¿le gustaría dejar un mensaje?": "Ok, I will call (Phone number given or listed under 'Department'). If we reach a voicemail at any point, would you like to leave a message?",
+            "¿Qué le gustaría que dijera el mensaje?": "What would you like the message to say?",
+            "Hemos alcanzado el límite de espera, así que debo desconectar. Una vez que el proveedor regrese, pueden volver a llamar para un intérprete. Gracias.": "We have reached the wait time limit, so I must disconnect. Once the provider returns, you can call back for an interpreter. Thank you.",
+            "Mi nombre es (First Name) y seré su intérprete de (Language). Por favor, mire y hable directamente con su proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona. Todo se mantendrá confidencial.": "My name is (First Name) and I will be your (Language) interpreter. Please look and speak directly to your provider. Speak slowly and pause frequently so I can interpret everything completely and accurately. Everything will be interpreted in first person. Everything will remain confidential.",
+            "Como intérprete, creo que hemos llegado a un buen momento en la conversación para cambiar de intérpretes. Por favor, permanezca en la línea y se conectará con uno de mis colegas momentáneamente y podrá continuar. Gracias.": "As the interpreter, I think we've reached a good moment in the conversation to switch interpreters. Please remain on the line and you'll be connected with one of my colleagues momentarily and you can continue. Thank you.",
+            "¿Puedo hablar con [el tercero/contacto]? Hola, soy [Nombre], un intérprete que llama en nombre del Proveedor/Doctor para el hospital. Por favor, hable directamente con su Doctor/Proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Provider, you may begin.": "May I speak with [the third party/contact]? Hello, I am [Name], an interpreter calling on behalf of the Provider/Doctor for the hospital. Please speak directly with your Doctor/Provider. Speak slowly and pause frequently so I can interpret everything completely and accurately. Everything will be interpreted in first person and will remain confidential. Provider, you may begin.",
+            "Hola, soy [Nombre], un intérprete que llama en nombre del [Doctor/Proveedor] para [el hospital]. [Dejar mensaje del Doctor/Proveedor]. Nuevamente, soy [Nombre], un intérprete que llama en nombre de [Doctor/Proveedor], adiós.": "Hello, I am [Name], an interpreter calling on behalf of [Doctor/Provider] for [the hospital]. [Leave Doctor/Provider's message]. Again, I am [Name], an interpreter calling on behalf of [Doctor/Provider], goodbye.",
+            "Le hice saber al proveedor que puedo esperar hasta 10 minutos para que regrese. Apagaré mi video y audio para su privacidad mientras el proveedor está fuera de la sala. Reanudaremos la interpretación una vez que regresen.": "I let the provider know that I can wait up to 10 minutes for their return. I will turn off my video and audio for your privacy while the provider is out of the room. We will resume interpretation once they return.",
+            "Como hablamos diferentes dialectos de nuestro idioma, el intérprete puede necesitar aclarar con más frecuencia con usted para asegurar una interpretación precisa.": "Since we speak different dialects of our language, the interpreter may need to clarify more frequently with you to ensure accurate interpretation.",
+            "El intérprete observa que están comunicándose bien. Permaneceré atento durante el encuentro e intervendré si es necesario.": "The interpreter sees that you are communicating well. I will remain attentive during the encounter and intervene if necessary.",
+            "El intérprete observa que la comunicación no está fluyendo bien. Intervendré y reanudaré la interpretación.": "The interpreter sees that communication is not flowing well. I will intervene and resume interpretation.",
+            "Este es el intérprete. Ayudará para una interpretación precisa si puedo interpretar entre Español y el inglés. Por favor, hable solo en Español y yo interpretaré al inglés.": "This is the interpreter. It will help for accurate interpretation if I can interpret between (non-English language) and English. Please speak only in (non-English language) and I will interpret into English.",
+            "Estoy en un espacio de trabajo que cumple con HIPAA.": "I am in a HIPAA-compliant workspace.",
+            "Por razones de privacidad y seguridad, no revelamos la ubicación.": "For privacy and security reasons, we do not disclose location.",
+            "Este es su intérprete. Le estoy hablando como si estuviéramos en el teléfono. ¿Me puede oír bien?": "This is your interpreter. I am speaking to you as if we are on the phone. Can you hear me well?",
+            "Este es su intérprete. Le informé a su proveedor que me retiraré de este encuentro y sugerí un intérprete presencial.": "This is your interpreter. I let your provider know I will withdraw from this encounter and suggested a face-to-face interpreter."
+        };
+
+        function setLanguage(lang) {
+            isEnglish = lang === 'en';
+            const button = document.querySelector('#current-language');
+            button.textContent = isEnglish ? 'EN' : 'ES';
+            
+            // Update active state in dropdown
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+                if ((lang === 'es' && option.textContent === 'Español') || 
+                    (lang === 'en' && option.textContent === 'English')) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const spanishText = element.getAttribute('data-translate');
+                if (isEnglish && translations[spanishText]) {
+                    element.textContent = "Patient: \"" + translations[spanishText] + "\"";
+                } else {
+                    element.textContent = "Patient: \"" + spanishText + "\"";
+                }
+            });
+        }
     </script>
 </body>
 </html>
