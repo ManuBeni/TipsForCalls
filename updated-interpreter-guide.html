@@ -16,7 +16,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            padding-top: 80px; /* Space for fixed menu */
+            padding-top: 80px; /* Increased space for menu */
         }
         .top-menu {
             position: fixed;
@@ -25,43 +25,61 @@
             width: 100%;
             background-color: #f8f9fa;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 10px 0;
+            padding: 5px 0;
             z-index: 1000;
         }
         .menu-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            padding: 0 10px;
             flex-wrap: wrap;
+            min-height: 40px;
+        }
+        .menu-container::-webkit-scrollbar {
+            display: none;
         }
         .top-menu a {
             text-decoration: none;
             color: #0066cc;
-            padding: 10px 15px;
+            padding: 5px 8px;
             transition: color 0.3s, background-color 0.3s;
             border-radius: 4px;
             white-space: nowrap;
+            font-size: 14px;
+            display: inline-block;
+            margin: 2px;
         }
         .top-menu a:hover {
             color: #004080;
             background-color: #e9ecef;
         }
+        .top-menu a.active {
+            color: #004080;
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
         h1 {
             color: #2c3e50;
             margin-bottom: 30px;
+            font-size: 2em;
         }
         h2 {
             color: #3498db;
             border-bottom: 2px solid #3498db;
             padding-bottom: 5px;
+            font-size: 1.5em;
         }
         h3 {
             color: #2c3e50;
+            font-size: 1.2em;
         }
         .section {
             margin-bottom: 40px;
-            scroll-margin-top: 80px; /* Offset for fixed header */
+            scroll-margin-top: 80px; /* Increased to account for menu height */
         }
         .subsection {
             margin: 20px 0;
@@ -74,8 +92,87 @@
         .quote {
             background-color: #f9f9f9;
             border-left: 4px solid #3498db;
-            padding: 10px 15px;
+            padding: 15px;
             margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+                padding-top: 100px; /* Increased for two-line menu */
+            }
+            .section {
+                scroll-margin-top: 100px; /* Adjusted for two-line menu */
+            }
+            .menu-container {
+                min-height: 60px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            h3 {
+                font-size: 1.1em;
+            }
+            .quote {
+                padding: 12px;
+                font-size: 0.95em;
+            }
+            .top-menu a {
+                font-size: 13px;
+                padding: 4px 6px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+                padding-top: 120px; /* Increased for three-line menu */
+            }
+            .section {
+                scroll-margin-top: 120px; /* Adjusted for three-line menu */
+            }
+            .menu-container {
+                min-height: 80px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            h3 {
+                font-size: 1em;
+            }
+            .quote {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            .subsection {
+                padding-left: 10px;
+            }
+            .top-menu a {
+                font-size: 12px;
+                padding: 3px 5px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .top-menu {
+                display: none;
+            }
+            .container {
+                padding-top: 0;
+            }
+            .quote {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -177,8 +274,8 @@
             
             <div class="subsection">
                 <h3>After Dial-Out</h3>
-                <div class="quote">Third Party Answers (en otro idioma que no sea inglés): "¿Puedo hablar con el tercero/contacto? Hola, soy [Name], un intérprete que llama en nombre del Proveedor para el hospital. Por favor, hable directamente con su proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Proveedor, puede comenzar."</div>
-                <div class="quote">If needed, Voicemail Message (en otro idioma que no sea inglés): "Hola, soy [Name], un intérprete que llama en nombre del Proveedor para el hospital. [Dejar mensaje del Proveedor]. Nuevamente, soy [Name], un intérprete que llama en nombre de [Proveedor], adiós."</div>
+                <div class="quote">Third Party Answers (en otro idioma que no sea inglés): "¿Puedo hablar con [el tercero/contacto]? Hola, soy [Nombre], un intérprete que llama en nombre del Proveedor/Doctor para el hospital. Por favor, hable directamente con su Doctor/Proveedor. Hable despacio y haga pausas con frecuencia para que pueda interpretar todo de manera completa y precisa. Todo se interpretará en primera persona y se mantendrá confidencial. Provider, you may begin."</div>
+                <div class="quote">If needed, Voicemail Message (en otro idioma que no sea inglés): "Hola, soy [Nombre], un intérprete que llama en nombre del [Doctor/Proveedor] para [el hospital]. [Dejar mensaje del Doctor/Proveedor]. Nuevamente, soy [Nombre], un intérprete que llama en nombre de [Doctor/Proveedor], adiós."</div>
             </div>
         </div>
 
@@ -224,7 +321,7 @@
             <div class="subsection">
                 <h3>Hold Guidelines</h3>
                 <div class="quote">Provider: "I can wait up to 10 minutes for your return. I will shut off my video and audio for the patient's privacy."</div>
-                <div class="quote">Patient: "I let the provider know I can wait up to 10 minutes for them to return. I will turn off my video and audio for your privacy while the provider is out of the room. We will resume the interpretation once they return."</div>
+                <div class="quote">Patient: "Le hice saber al proveedor que puedo esperar hasta 10 minutos para que regrese. Apagaré mi video y audio para su privacidad mientras el proveedor está fuera de la sala. Reanudaremos la interpretación una vez que regresen."</div>
                 <div class="quote">Always make a note of the hold times. Use professional judgment as you may need to wait longer for sensitive situations.</div>
             </div>
             
@@ -249,24 +346,25 @@
                 <h3>Dialect Differences – Staying in the Call</h3>
                 <div class="quote">-Provider asks if you can interpret for a specific variety of a language you are qualified to interpret: "Yes, the interpreter is qualified to interpret for this."</div>
                 <div class="quote">- Provider: "The interpreter and patient speak different dialects of our language. I may need to clarify more often with the patient to ensure accurate interpretation."</div>
-                <div class="quote">- Patient: "As we speak different dialects of our language, the interpreter may need to clarify more often with you to ensure accurate interpretation."</div>
+                <div class="quote">- Patient: "Como hablamos diferentes dialectos de nuestro idioma, el intérprete puede necesitar aclarar con más frecuencia con usted para asegurar una interpretación precisa."</div>
             </div>
             
             <div class="subsection">
                 <h3>Shadowing – Successful Communication</h3>
-                <div class="quote">- Both Provider and Patient: "The interpreter sees that you are communicating well. I will shadow the encounter and step in if I'm needed."</div>
+                <div class="quote">- Provider: "The interpreter sees that you are communicating well. I will shadow the encounter and step in if I'm needed."</div>
+                <div class="quote">- Patient: "El intérprete observa que están comunicándose bien. Permaneceré atento durante el encuentro e intervendré si es necesario."</div>
             </div>
             
             <div class="subsection">
                 <h3>Shadowing – Resume Interpreting</h3>
                 <div class="quote">- Provider: "The interpreter sees that communication may not be flowing well. I will step in and resume interpreting."</div>
-                <div class="quote">- Patient: (In non-English language) "The interpreter sees that communication may not be flowing well. I will step in and resume interpreting."</div>
+                <div class="quote">- Patient: (In non-English language) "El intérprete observa que la comunicación no está fluyendo bien. Intervendré y reanudaré la interpretación."</div>
             </div>
             
             <div class="subsection">
                 <h3>Switching Between Languages</h3>
                 <div class="quote">- If Provider is speaking both languages: "Provider, this is the interpreter. It will help for an accurate interpretation if I can interpret between English and (Other Language). Please only speak in English and I will interpret into (Other Language)." Be transparent with Patient.</div>
-                <div class="quote">- If Patient is speaking both languages: "This is the interpreter. It will help for an accurate interpretation if I can interpret between (Other Language) and English. Please only speak in (Other Language) and I will interpret into English." Be transparent with Provider.</div>
+                <div class="quote">- If Patient is speaking both languages: "Este es el intérprete. Ayudará para una interpretación precisa si puedo interpretar entre Español y el inglés. Por favor, hable solo en Español y yo interpretaré al inglés." Be transparent with Provider.</div>
             </div>
             
             <div class="subsection">
@@ -309,8 +407,8 @@
             
             <div class="subsection">
                 <h3>Provider or Patient asking for your Location</h3>
-                <div class="quote">- "I am in a HIPAA compliant workspace."</div>
-                <div class="quote">If pressed for more information, you may answer: "For privacy and security purposes, we do not disclose location."</div>
+                <div class="quote">- "Estoy en un espacio de trabajo que cumple con HIPAA."</div>
+                <div class="quote">If pressed for more information, you may answer: "Por razones de privacidad y seguridad, no revelamos la ubicación."</div>
             </div>
             
             <div class="subsection">
@@ -354,9 +452,9 @@
             
             <div class="subsection">
                 <h3>Interpreter</h3>
-                <div class="quote">- Greeting (In non-English language): Hello, thank you for calling. My name is (First Name), the (Language) interpreter. I see that you need to dial (Hospital Name from Account). Is that correct?</div>
-                <div class="quote">- Before dialing out to the hospital number listed under department or number provided by the patient (In non-English language): Ok, I will dial out to (Phone Number Given or Listed Under Department). If at any point, we reach a voicemail box would you like to leave a message? 
-                <br>If yes: What would you like the message to say?</div>
+                <div class="quote">- Greeting (In non-English language): "Hola, gracias por llamar. Soy (First Name), intérprete de (Language). Veo que necesita llamar a (Hospital Name from Account). ¿Es así?"</div>
+                <div class="quote">- Before dialing out to the hospital number listed under department or number provided by the patient (In non-English language): Ok, marcaré al (Número de teléfono dado o listado debajo de "Departament"). Si en algún momento llegamos a un buzón de voz, ¿le gustaría dejar un mensaje?
+                <br>If yes:¿Qué le gustaría que dijera el mensaje? </div>
                 <div class="quote">- Once the provider is reached (In English): Hello, this is (First Name), your (Language) interpreter, (Employee ID #), and I have a (Language)-speaking patient on the line. I'll let them know you answered, interpret your question, and we can continue.</div>
             </div>
             
